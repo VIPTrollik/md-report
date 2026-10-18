@@ -1,0 +1,52 @@
+/* default: A4, dark text, yellow accent bars on the title and section headings. */
+:root {
+  --accent: #f5c518;
+  --accent-soft: #fff8dc;
+  --text: #222;
+  --muted: #777;
+  --border: #ccc;
+}
+
+@page { size: A4; margin: 16mm 15mm; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: var(--text);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+header#title-block-header { border-bottom: 4px solid var(--accent); padding-bottom: 8px; margin-bottom: 14px; }
+h1.title { font-size: 20pt; margin: 0 0 4px; color: #1e1e1e; }
+p.subtitle { font-size: 12pt; margin: 0 0 4px; color: #444; }
+p.author, p.date { color: var(--muted); margin: 0; }
+
+h1 { font-size: 16pt; margin: 24px 0 8px; break-after: avoid; }
+h2 { font-size: 13.5pt; margin: 20px 0 6px; padding-left: 8px; border-left: 4px solid var(--accent); break-after: avoid; }
+h3 { font-size: 11.5pt; margin: 14px 0 4px; break-after: avoid; }
+
+p, li { margin: 3px 0; }
+ul, ol { padding-left: 20px; }
+a { color: #1a5fb4; }
+
+figure { margin: 8px 0; break-inside: avoid; }
+img { max-width: 100%; border: 1px solid var(--border); border-radius: 3px; }
+figure img { width: 100%; }
+figcaption { font-size: 8.5pt; color: var(--muted); text-align: center; margin-top: 2px; }
+
+blockquote { background: var(--accent-soft); border-left: 4px solid var(--accent); margin: 8px 0 4px; padding: 6px 10px; break-inside: avoid; }
+blockquote p { margin: 0; }
+
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9.5pt; break-inside: avoid; }
+th, td { border-bottom: 1px solid var(--border); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { border-bottom: 2px solid var(--accent); }
+
+code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; background: #f4f4f4; padding: 0 3px; border-radius: 2px; }
+pre { background: #f4f4f4; padding: 8px 10px; border-radius: 3px; overflow-x: auto; break-inside: avoid; }
+pre code { padding: 0; background: none; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+.page-break { break-after: page; }

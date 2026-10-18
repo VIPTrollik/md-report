@@ -1,0 +1,3 @@
+#!/bin/sh
+# Shim for macOS/Linux (needs PowerShell 7: pwsh).
+exec pwsh -NoProfile -File "$(dirname "$0")/mdreport.ps1" "$@"
