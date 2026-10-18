@@ -2,6 +2,8 @@
 
 A small command-line tool that turns Markdown into print-ready PDF reports. It converts the Markdown to a self-contained HTML page with [pandoc](https://pandoc.org), styles it with a template, and prints it to PDF with headless Chrome or Edge.
 
+## DISCLAIMER: FULLY VIBECODED (But works pretty well)
+
 ## Requirements
 
 - [pandoc](https://pandoc.org/installing.html) on `PATH` (2.19+ recommended; older versions also work)
