@@ -166,7 +166,8 @@ function Invoke-Build([string[]]$Arguments) {
         $pdf = if ($outFile) { $outFile } elseif ($outDir) { Join-Path $outDir "$base.pdf" } else { Join-Path $srcDir "$base.pdf" }
         $html = if ($keepHtml) { [System.IO.Path]::ChangeExtension($pdf, '.html') } else { Join-Path ([System.IO.Path]::GetTempPath()) "mdreport-$([guid]::NewGuid()).html" }
 
-        $pandocArgs = @($src) + $embedArgs + @('--css', $template.Css, "--resource-path=$srcDir", '-o', $html)
+        # MathML keeps TeX math offline and self-contained; Chromium renders it natively (v109+).
+        $pandocArgs = @($src) + $embedArgs + @('--mathml', '--css', $template.Css, "--resource-path=$srcDir", '-o', $html)
         if ($template.HtmlTemplate) { $pandocArgs += @('--template', $template.HtmlTemplate) }
         if (-not (Test-HasTitle $src)) { $pandocArgs += @('--metadata', "pagetitle=$base") }
 

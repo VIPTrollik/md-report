@@ -48,5 +48,8 @@ code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; backgrou
 pre { background: #f4f4f4; padding: 8px 10px; border-radius: 3px; overflow-x: auto; break-inside: avoid; }
 pre code { padding: 0; background: none; }
 
+math { font-family: "Cambria Math", "STIX Two Math", math; }
+math[display="block"] { margin: 8px 0; break-inside: avoid; }
+
 hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 .page-break { break-after: page; }

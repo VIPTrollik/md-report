@@ -27,3 +27,9 @@ Run `mdreport build example.md` to build this file.
 ```powershell
 mdreport build examples\example.md -o out
 ```
+
+## 4. Math
+
+Inline math such as $\theta_{out} = \arctan\frac{h}{d}$ uses single dollar signs, and display math uses double ones:
+
+$$\sin(\alpha - \theta_{out}) = \frac{d}{\sqrt{d^2 + h^2}} \qquad n_{water}^2 = n_{prism}^2 - \cos^2\gamma$$

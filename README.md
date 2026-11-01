@@ -56,6 +56,7 @@ lang: cs
 - Images are resolved relative to the Markdown file and embedded into the PDF. An image alone in its own paragraph becomes a figure, and its alt text becomes the caption.
 - `> quotes` render as highlighted callout boxes in the default template, which works well for questions to the reader.
 - `<div class="page-break"></div>` forces a page break.
+- TeX math works: `$\alpha$` inline and `$$\frac{d}{\sqrt{d^2 + h^2}}$$` for a display equation. pandoc converts it to MathML, which the browser renders natively, so no internet connection or JavaScript is needed. Math uses the system math font (Cambria Math on Windows); the `academic` template uses Latin Modern Math instead if it is installed.
 
 ## Templates
 
