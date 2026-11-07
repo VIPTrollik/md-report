@@ -1,0 +1,136 @@
+/* academic: A4, Latin Modern serif, in the style of the LaTeX article class.
+   Numbered sections, figures and tables, booktabs tables and a centred page number.
+   Fonts: Latin Modern by GUST (GUST Font License), bundled in ./fonts. */
+@font-face { font-family: "Latin Modern"; src: url("fonts/lmroman10-regular.otf"); font-weight: normal; font-style: normal; }
+@font-face { font-family: "Latin Modern"; src: url("fonts/lmroman10-italic.otf"); font-weight: normal; font-style: italic; }
+@font-face { font-family: "Latin Modern"; src: url("fonts/lmroman10-bold.otf"); font-weight: bold; font-style: normal; }
+@font-face { font-family: "Latin Modern"; src: url("fonts/lmroman10-bolditalic.otf"); font-weight: bold; font-style: italic; }
+@font-face { font-family: "Latin Modern Mono"; src: url("fonts/lmmono10-regular.otf"); }
+
+:root {
+  --serif: "Latin Modern", "CMU Serif", Cambria, Georgia, serif;
+  --mono: "Latin Modern Mono", "CMU Typewriter Text", Consolas, monospace;
+  --indent: 1.5em;
+  --rule: #000;
+}
+
+@page {
+  size: A4;
+  margin: 28mm 32mm 30mm;
+  @bottom-center { content: counter(page); font-family: var(--serif); font-size: 11pt; }
+}
+
+body {
+  font-family: var(--serif);
+  font-size: 11pt;
+  line-height: 1.35;
+  color: #000;
+  text-align: justify;
+  hyphens: auto;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: section figure table;
+}
+
+/* Title block, as \maketitle */
+header#title-block-header { text-align: center; margin: 4mm 0 9mm; }
+h1.title { text-align: center; font-size: 17.28pt; font-weight: normal; line-height: 1.2; margin: 0 0 4mm; }
+p.subtitle { font-size: 12pt; margin: -2mm 0 4mm; }
+p.author, p.date { font-size: 12pt; margin: 0 0 2mm; text-indent: 0; text-align: center; }
+p.author + p.date { margin-top: 3mm; }
+
+/* Abstract, as the abstract environment */
+.abstract { font-size: 10pt; margin: 6mm 2.5em 0; text-align: justify; }
+.abstract-title { font-weight: bold; text-align: center; margin-bottom: 1.5mm; }
+.abstract p { margin: 0; }
+.abstract p + p { text-indent: var(--indent); }
+
+/* Sections: # is \section, ## is \subsection, ### is \subsubsection.
+   If the document has no level-1 headings, ## becomes \section instead. */
+h1, h2, h3, h4 { font-weight: bold; text-align: left; hyphens: manual; break-after: avoid; }
+h1 { font-size: 14.4pt; margin: 7mm 0 3.5mm; counter-reset: subsection; }
+h2 { font-size: 12pt; margin: 5.5mm 0 2.5mm; counter-reset: subsubsection; }
+h3 { font-size: 11pt; margin: 4.5mm 0 2mm; }
+h4 { font-size: 11pt; display: inline; margin: 0 1em 0 0; }
+h4 + p { display: inline; }
+
+h1:not(.title):not(.unnumbered) { counter-increment: section; }
+h1:not(.title):not(.unnumbered)::before { content: counter(section); margin-right: 1em; }
+h2:not(.unnumbered) { counter-increment: subsection; }
+h2:not(.unnumbered)::before { content: counter(section) "." counter(subsection); margin-right: 1em; }
+h3:not(.unnumbered) { counter-increment: subsubsection; }
+h3:not(.unnumbered)::before { content: counter(section) "." counter(subsection) "." counter(subsubsection); margin-right: 1em; }
+
+body:not(:has(h1:not(.title))) h2 { font-size: 14.4pt; margin: 7mm 0 3.5mm; }
+body:not(:has(h1:not(.title))) h3 { font-size: 12pt; margin: 5.5mm 0 2.5mm; }
+body:not(:has(h1:not(.title))) h2:not(.unnumbered)::before { content: counter(subsection); }
+body:not(:has(h1:not(.title))) h3:not(.unnumbered)::before { content: counter(subsection) "." counter(subsubsection); }
+
+/* Paragraphs: no gaps, first-line indent except after headings and floats */
+p { margin: 0; orphans: 2; widows: 2; }
+p + p { text-indent: var(--indent); }
+ul, ol, dl { margin: 2mm 0; padding-left: 2.2em; }
+li { margin: 0.6mm 0; }
+li > p { margin: 0; }
+dt { font-weight: bold; }
+dd { margin-left: var(--indent); }
+a { color: inherit; text-decoration: none; }
+a[href^="http"] { font-family: var(--mono); font-size: 0.95em; }
+strong { font-weight: bold; }
+
+/* quote environment */
+blockquote { margin: 2.5mm 2.5em; text-align: justify; }
+blockquote p + p { text-indent: 0; margin-top: 1.5mm; }
+
+/* Figures: numbered captions below */
+figure { margin: 5mm auto; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; }
+img { max-width: 100%; }
+figcaption { counter-increment: figure; font-size: 11pt; text-align: center; margin-top: 2.5mm; padding: 0 2em; }
+figcaption::before { content: "Figure " counter(figure) ": "; }
+
+/* Tables: booktabs rules, numbered captions above */
+table { border-collapse: collapse; margin: 5mm auto; font-size: 10.5pt; break-inside: avoid; border-top: 1.2px solid var(--rule); border-bottom: 1.2px solid var(--rule); }
+thead th { border-bottom: 0.7px solid var(--rule); font-weight: normal; }
+th, td { padding: 1mm 0.6em; text-align: left; vertical-align: top; }
+caption { counter-increment: table; caption-side: top; padding-bottom: 2.5mm; font-size: 11pt; }
+caption::before { content: "Table " counter(table) ": "; }
+
+/* Localised caption labels */
+:lang(cs) figcaption::before { content: "Obrázek " counter(figure) ": "; }
+:lang(cs) caption::before { content: "Tabulka " counter(table) ": "; }
+:lang(sk) figcaption::before { content: "Obrázok " counter(figure) ": "; }
+:lang(sk) caption::before { content: "Tabuľka " counter(table) ": "; }
+:lang(de) figcaption::before { content: "Abbildung " counter(figure) ": "; }
+:lang(de) caption::before { content: "Tabelle " counter(table) ": "; }
+
+/* Code: verbatim, no boxes */
+code { font-family: var(--mono); font-size: 0.95em; }
+pre { font-size: 9.5pt; line-height: 1.25; margin: 3mm 0 3mm var(--indent); text-align: left; white-space: pre-wrap; break-inside: avoid; }
+pre code { font-size: inherit; }
+div.sourceCode { margin: 0; background: none; }
+div.sourceCode code span { color: inherit; font-style: normal; }
+div.sourceCode code span.kw, div.sourceCode code span.cf { font-weight: bold; }
+div.sourceCode code span.co { font-style: italic; }
+
+/* Math: pandoc emits MathML, which Chrome renders natively. Uses Latin Modern Math
+   if it is installed, otherwise the system math font (Cambria Math on Windows). */
+math { font-family: "Latin Modern Math", "STIX Two Math", "Cambria Math", math; }
+math[display="block"] { margin: 3mm 0; break-inside: avoid; }
+
+/* Footnotes, collected at the end */
+section.footnotes { font-size: 9pt; margin-top: 8mm; text-align: left; }
+section.footnotes hr { width: 35%; margin: 0 0 2mm; border: none; border-top: 0.6px solid var(--rule); }
+section.footnotes ol { padding-left: 1.6em; }
+a.footnote-ref sup, sup { font-size: 0.7em; line-height: 0; }
+a.footnote-back { display: none; }
+
+/* Table of contents, if present */
+nav#TOC ul { list-style: none; padding-left: 1.5em; }
+nav#TOC > ul { padding-left: 0; }
+
+hr { border: none; border-top: 0.6px solid var(--rule); margin: 5mm 20%; }
+.page-break { break-after: page; }

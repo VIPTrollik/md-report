@@ -60,6 +60,20 @@ lang: cs
 
 ## Templates
 
+Built-in templates:
+
+| Name | Look |
+|---|---|
+| `default` | Sans-serif report with yellow accent bars. |
+| `academic` | Looks like the LaTeX `article` class: Latin Modern serif, centred title block, `abstract`, numbered sections, figures and tables, booktabs tables, justified text with indented paragraphs, and centred page numbers. |
+
+Notes for `academic`:
+
+- `#` is a section, `##` a subsection and `###` a subsubsection. If the document has no `#` headings, `##` becomes the section level. Headings are numbered automatically, so don't number them by hand. Use `## Heading {-}` for an unnumbered one.
+- Put `abstract:` in the front matter for an abstract. Table captions go on a `: Caption` line after the table.
+- Set `lang: cs`, `sk` or `de` to translate the "Figure", "Table" and "Abstract" labels.
+- The Latin Modern fonts in `templates/academic/fonts` are by GUST, under the GUST Font License.
+
 A template is a folder that contains:
 
 - `style.css`: required. Print rules such as `@page { size: A4; margin: … }` go here.
