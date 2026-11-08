@@ -174,6 +174,15 @@ function Invoke-Build([string[]]$Arguments) {
         & pandoc @pandocArgs
         if ($LASTEXITCODE -ne 0) { Fail "pandoc failed for $src" }
 
+        # Decimal comma: pandoc emits 4{,}7 as <mn>4</mn><mo>,</mo><mn>7</mn>, which renders as "4, 7".
+        # For documents with lang: cs, merge such digit runs back into a single number.
+        if ((Get-Content -LiteralPath $src -TotalCount 30 -Encoding UTF8) -match '^\s*lang:\s*["'']?cs') {
+            $utf8 = New-Object System.Text.UTF8Encoding($false)
+            $h = [System.IO.File]::ReadAllText($html, $utf8)
+            $h = [regex]::Replace($h, '<mn>([0-9]+)</mn><mo>,</mo><mn>([0-9]+)</mn>', '<mn>$1,$2</mn>')
+            [System.IO.File]::WriteAllText($html, $h, $utf8)
+        }
+
         if (Test-Path -LiteralPath $pdf) { Remove-Item -LiteralPath $pdf }
         $url = ([System.Uri]$html).AbsoluteUri
         $proc = Start-Process -FilePath $browser -Wait -PassThru -WindowStyle Hidden -ArgumentList @(
